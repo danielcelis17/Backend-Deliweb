@@ -2,9 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Sucategory extends Model
 {
-    //
+    use HasFactory;
+
+    //Relacion uno a muchos inversa
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    //Relacion uno a muchos
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
