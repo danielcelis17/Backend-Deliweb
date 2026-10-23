@@ -11,27 +11,40 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/bb685615ea.js" crossorigin="anonymous"></script>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased" x-data="{
-    siderbarOpen: false}">
-        
-    @include('layout.partials.admin.navigation')
-    
-    @include('layout.partials.admin.sidebar')
+    <body class="font-sans antialiased bg-gray-50"
+        x-data="{ sidebarOpen: false }"
+        :class="{ 'overflow-hidden': sidebarOpen }">
 
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashboard 200">
-
-            {{ $slot }}
-
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 sm:hidden"
+            style="display: none;"
+            x-show="sidebarOpen"
+            x-on:click="sidebarOpen = false">
         </div>
-    </div>
 
-    @livewireScripts
+        @include('layouts.partials.admin.navigation')
+
+        @include('layouts.partials.admin.sidebar')
+
+        <div class="p-4 sm:ml-64">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg mt-14">
+                {{ $slot }}
+            </div>
+        </div>
+
+        @stack('modals')
+
+        @livewireScripts
     </body>
 </html>
