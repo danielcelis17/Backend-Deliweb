@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name');
 
-            $table->foreign('family_id')->constrained();
+            $table->foreignId('family_id')->constrained();
 
             $table->timestamps();
         });
