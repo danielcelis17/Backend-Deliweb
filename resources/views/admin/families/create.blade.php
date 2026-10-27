@@ -14,15 +14,25 @@
 
     <div class="card">
 
-        <form action="">
+        <form action="{{route('admin.families.store')}}" method="POST">
+
+            @csrf
 
 
-            <div>
+            <div class="mb-4">
                 <x-label class="mb-2">
                     Nombre
                 </x-label>
                 <x-input class="w-full"
-                    placeholder="Ingrese el nombre de la familia" />
+                    placeholder="Ingrese el nombre de la familia"
+                    name="name" 
+                    value"{{old('name')}}"/>
+            </div>
+
+            <div>
+                <x-button class="flex justify-end">
+                    Guardar
+                </x-button>
             </div>
 
         </form>
