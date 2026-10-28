@@ -31,14 +31,33 @@
             </div>
 
             <div>
-                <x-button class="flex justify-end">
-                    Actualizar
-                </x-button>
-            </div>
+                <div class="flex justify-end">
+                        <x-danger-button>
+                            Eliminar
+                        </x-danger-button>
+
+                        <x-button class="ml-2">
+                            Actualizar
+                        </x-button>
+                </div>
 
         </form>
 
     </div>
+
+    <form action="{{route('admin.families.destroy', $family)}}" 
+    method="POST"
+    id="delete-form">
+
+    @csrf
+
+    @method('DELETE')
+
+    </form>
+
+    @push('js')
+
+    @endpush
 
 ]">
 
