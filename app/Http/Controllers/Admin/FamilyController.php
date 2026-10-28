@@ -37,6 +37,12 @@ class FamilyController extends Controller
 
         Family::create($request->all());
 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Familia creada correctamente.'
+        ]);
+
         return redirect()->route('admin.families.index');
     }
 
@@ -67,7 +73,13 @@ class FamilyController extends Controller
 
         $family->update($request->all());
 
-        return redirect()->route('admin.damilies.edit', $family);
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Familia actualizada correctamente.'
+        ]);
+
+        return redirect()->route('admin.families.edit', $family);
     }
 
     /**

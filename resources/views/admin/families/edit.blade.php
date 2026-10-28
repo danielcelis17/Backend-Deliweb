@@ -32,7 +32,7 @@
 
             <div>
                 <div class="flex justify-end">
-                        <x-danger-button>
+                        <x-danger-button onclick="confirmDelete()">
                             Eliminar
                         </x-danger-button>
 
@@ -56,6 +56,11 @@
     </form>
 
     @push('js')
+        <script>
+            function confirmDelete() {
+                document.getElementById('delete-form').submit();
+            }
+        </script>
 
     @endpush
 
