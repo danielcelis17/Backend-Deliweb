@@ -72,7 +72,7 @@
 
         @if (session('swal'))
         <script>
-            Swal.fire({{ session('swal') }});
+            Swal.fire({!! json_encode(session('swal')) !!});
         </script>
 
         @endif
