@@ -28,7 +28,8 @@
                 <x-select name="family_id" class="w-full">
 
                     @foreach ($families as $family)
-                        <option value="{{$family->id}}">
+                        <option value="{{$family->id}}"
+                            >
                             {{$family->name}}
                         </option>
                     @endforeach()
