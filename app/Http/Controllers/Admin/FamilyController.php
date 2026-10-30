@@ -100,8 +100,14 @@ class FamilyController extends Controller
 
         }
 
-
         $family->delete();
 
+            session()->flash('swal', [
+                'icon' => 'success',
+                'title' => '¡Bien hecho!',
+                'text' => 'Familia eliminada correctamente.'
+            ]);
+
+            return redirect()->route('admin.families.index');
     }
 }

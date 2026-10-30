@@ -7,3 +7,4 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('families', 'FamilyController::class');
+Route::resource('categories', 'CategoryController::class');
