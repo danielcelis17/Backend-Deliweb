@@ -21,7 +21,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $families = Family::all();
+        return view('admin.categories.create', compact('families'));
     }
 
     /**
@@ -29,7 +30,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'family_id' => 'required|exists:families,id',
+            'name' => 'required',
+        ]);
+
+        Category::create($request->all());
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Categoría creada correctamente'
+        ]);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
