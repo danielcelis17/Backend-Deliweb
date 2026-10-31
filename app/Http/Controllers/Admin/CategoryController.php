@@ -13,7 +13,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.index');
+        $categories = Category::orderBy('id', 'desc')
+            ->with('family')
+            ->paginate(10);
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
