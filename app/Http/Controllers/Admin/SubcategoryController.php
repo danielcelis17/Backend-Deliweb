@@ -14,6 +14,7 @@ class SubcategoryController extends Controller
     public function index()
     {
         $subcategories = Subcategory::with('category.family')
+                ->orderBy('id', 'desc')
                 ->paginate(10);
 
         return view('admin.subcategories.index', compact('subcategories'));
@@ -24,7 +25,8 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.subcategories.create', compact('categories'));
     }
 
     /**
@@ -32,7 +34,19 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate[(
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required'
+        )];
+
+        Subcategory::create($request->all());
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Subcategoría creada correctamente'
+        ]);
+
+        return redirect()->route('admin.subcategories.index');
     }
 
     /**
