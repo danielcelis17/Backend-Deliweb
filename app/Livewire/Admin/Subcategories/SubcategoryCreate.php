@@ -4,7 +4,8 @@ namespace App\Livewire\Admin\Subcategories;
 
 use App\Models\Category;
 use App\Models\Family;
-use Livewire\Computed;;
+use App\Models\Subcategory;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class SubcategoryCreate extends Component
