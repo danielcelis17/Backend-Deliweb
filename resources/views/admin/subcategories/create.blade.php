@@ -1,4 +1,4 @@
-<x-admin-layout : breadcrumbs="[
+<x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'route' => route('admin.dashboard'),
@@ -12,7 +12,7 @@
     ]
 ]">
 
-<form action="{{route('admin.subcategories.store')}}" method="POST">
+{{-- <form action="{{route('admin.subcategories.store')}}" method="POST">
 
         @csrf
 
@@ -54,6 +54,8 @@
             </div>
 
         </div>
-    </form>
+    </form> --}}
+
+    @livewire('admin.subcategories.subcategory-create')
 
 </x-admin-layout>

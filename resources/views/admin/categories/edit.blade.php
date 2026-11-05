@@ -1,4 +1,4 @@
-<x-admin-layout : breadcrumbs="[
+<x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'route' => route('admin.dashboard'),
@@ -31,7 +31,7 @@
 
                     @foreach ($families as $family)
                         <option value="{{$family->id}}"
-                        @selected(old('family_id') == $family->id)>
+                        @selected(old('family_id', $category->family_id) == $family->id)>
                             {{$family->name}}
                         </option>
                     @endforeach()
@@ -46,11 +46,11 @@
                 <x-input class="w-full"
                     placeholder="Ingrese el nombre de la categoría"
                     name="name" 
-                    value"{{old('name', $category->name)}}"/>
+                    value="{{old('name', $category->name)}}"/>
             </div>
 
             <div>
-                <x-button class="flex justify-end">
+                <div class="flex justify-end">
                 <x-danger-button onclick="confirmDelete()">
                     Eliminar
                 </x-danger-button>
@@ -58,6 +58,7 @@
                 <x-button class="ml-2">
                     Actualizar
                 </x-button>
+                </div>
             </div>
 
         </div>

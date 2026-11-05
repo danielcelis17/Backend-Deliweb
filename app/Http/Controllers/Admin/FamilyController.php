@@ -23,7 +23,7 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        return view('admin.families.index');
+        return view('admin.families.create');
     }
 
     /**

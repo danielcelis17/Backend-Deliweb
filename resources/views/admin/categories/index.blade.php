@@ -1,4 +1,4 @@
-<x-admin-layout : breadcrumbs="[
+<x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'route' => route('admin.dashboard'),
@@ -15,7 +15,7 @@
             </a>
     </x-slot>
 
-    @if ($families->count())
+    @if ($categories->count())
 
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
     <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -39,7 +39,7 @@
                 @foreach ($categories as $category)
             <tr class="bg-neutral-primary border-b border-default">
                 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    {{$categoryy->id}}
+                    {{$category->id}}
                 </th>
                 <td class="px-6 py-4">
                     {{$category->name}}
@@ -48,7 +48,7 @@
                     {{$category->family->name}}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="{{route('admin.categories.edit', $family)}}">
+                    <a href="{{route('admin.categories.edit', $category)}}">
                         Editar
                     </a>
                 </td>

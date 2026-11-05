@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -34,10 +35,10 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate[(
+        $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name' => 'required'
-        )];
+        ]);
 
         Subcategory::create($request->all());
         session()->flash('swal', [

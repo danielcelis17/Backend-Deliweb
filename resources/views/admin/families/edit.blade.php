@@ -1,4 +1,4 @@
-<x-admin-layout : breadcrumbs="[
+<x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'route' => route('admin.dashboard'),
@@ -10,6 +10,7 @@
     [
         'name' => $family->name,
     ]
+]">
 
     <div class="card">
 
@@ -27,7 +28,7 @@
                 <x-input class="w-full"
                     placeholder="Ingrese el nombre de la familia"
                     name="name" 
-                    value"{{old('name', $family->name)}}"/>
+                    value="{{old('name', $family->name)}}"/>
             </div>
 
             <div>
@@ -40,6 +41,7 @@
                             Actualizar
                         </x-button>
                 </div>
+            </div>
 
         </form>
 
@@ -84,7 +86,5 @@
         </script>
 
     @endpush
-
-]">
 
 </x-admin-layout>

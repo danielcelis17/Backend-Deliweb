@@ -1,4 +1,4 @@
-<x-admin-layout : breadcrumbs="[
+<x-admin-layout :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'route' => route('admin.dashboard'),
@@ -44,7 +44,7 @@
                 <x-input class="w-full"
                     placeholder="Ingrese el nombre de la categoría"
                     name="name" 
-                    value"{{old('name')}}"/>
+                    value="{{old('name')}}"/>
             </div>
 
             <div>
