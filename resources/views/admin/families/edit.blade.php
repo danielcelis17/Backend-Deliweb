@@ -33,6 +33,7 @@
 
             <div>
                 <div class="flex justify-end">
+                    
                         <x-danger-button onclick="confirmDelete()">
                             Eliminar
                         </x-danger-button>
