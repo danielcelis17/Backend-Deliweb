@@ -56,12 +56,50 @@
                     wire:model="subcategoryEdit.name" />
             </div>
 
-            <div>
-                <x-button class="flex justify-end">
+            <div class="flex justify-end">
+
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+
+                <x-button class="ml-2">
                     Actualizar
                 </x-button>
             </div>
-
-    </div>
+        </div>
     </form>
+
+    <form action="{{route('admin.subcategories.destroy', $subcategory)}}" 
+    method="POST"
+    id="delete-form">
+
+    @csrf
+
+    @method('DELETE')
+
+    </form>
+
+    @push('js')
+        <script>
+            function confirmDelete() {
+
+                Swal.fire({
+                    title: "¿Estas seguro?",
+                    text: "No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, bórralo!",
+                    cancelButtonText: "Cancelar"
+            }).then((result) => {
+                    if (result.isConfirmed) {
+
+                    document.getElementById('delete-form').submit();
+                }
+            });
+        }
+        </script>
+
+    @endpush
 </div>
