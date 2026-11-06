@@ -39,7 +39,7 @@
 
         @include('layouts.partials.admin.sidebar')
 
-        <div class="mt-14">
+        <div class="mt-16">
 
         <div class="p-4 sm:ml-64">
 
@@ -74,8 +74,13 @@
         <script>
             Swal.fire({!! json_encode(session('swal')) !!});
         </script>
-
         @endif
+
+        <script>
+            Livewire.on('swal', data => {
+                Swal.fire(data[0]);
+            });
+        </script>
 
     </body>
 </html>

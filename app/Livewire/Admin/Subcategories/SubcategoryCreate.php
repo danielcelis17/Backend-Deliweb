@@ -18,10 +18,10 @@ class SubcategoryCreate extends Component
         'name' => '',
     ];
 
-    public function mount()
+   public function mount()
     {
         $this->families = Family::all();
-    }
+    } 
 
     public function updatedSubcategoryFamilyId()
     {
@@ -53,8 +53,6 @@ class SubcategoryCreate extends Component
             'title' => '¡Bien hecho!',
             'text' => 'Subcategoría creada correctamente'
         ]);
-
-        return redirect()->route('admin.subcategories.index');
     }
 
     public function render()
