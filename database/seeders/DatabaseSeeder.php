@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\Family::factory(10)->create();
 
-        // \App\Models\Family::factory()->create();
-        // 'name' => 'Test User',
-        // 'email' => 'test@example.com',
-        // ]);
+        \App\Models\Family::factory()->create([
+            'name' => 'Daniel Celis',
+            'email' => 'Deliweb@gmail.com',
+            'password' => bcrypt('12345678')
+        ]);
 
         $this->call([
             FamilySeeder::class,
