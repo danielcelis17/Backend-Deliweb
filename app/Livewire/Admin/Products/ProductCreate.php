@@ -2,8 +2,13 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Models\Category;
+use App\Models\Family;
+use App\Models\Product;
+use App\Models\Subcategory;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ProductCreate extends Component
 {
@@ -56,7 +61,7 @@ class ProductCreate extends Component
         $this->product['subcategory_id'] = '';
     }
 
-    #[Computed()]
+   #[Computed()]
     public function categories()
     {
         return Category::where('family_id', $this->family_id)->get()
