@@ -64,6 +64,16 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Storage::delete($product->image_path);
+
+        $product->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El producto se eliminó correctamente.'
+        ]);
+
+        return redirect()->route('admin.products.index')
     }
 }
