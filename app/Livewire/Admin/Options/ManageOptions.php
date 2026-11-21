@@ -17,6 +17,12 @@ class ManageOptions extends Component
         $this->options = Option::with('features')->get();
     }
 
+    #[On('featureAdded')]
+    public function updateOptionList()
+    {
+        $this->options = Option::with('features')->get();
+    }
+
     public function addFeature()
     {
         $this->newOption->addFeature();
