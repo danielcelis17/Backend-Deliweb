@@ -10,18 +10,7 @@ class ManageOptions extends Component
 
     public $options;
 
-    public $newOption = [
-        'name' => '',
-        'type' => 2,
-        'features' => [
-            [
-                'value' => '',
-                'description' => '',
-            ]
-        ]
-    ];
-
-    public $openModal = false;
+    public NewOptionForm $newOption;
 
     public function mount()
     {
@@ -30,16 +19,12 @@ class ManageOptions extends Component
 
     public function addFeature()
     {
-        $this->newOption['features'][] = [
-            'value' => '',
-            'description' => '',
-        ];
+        $this->newOption->addFeature();
     }
 
     public function removeFeature($index)
     {
-        unset($this->newOption['features'][$index]);
-        $this->newOption['features'] = array_values($this->newOption['features']);
+        $this->newOption->removeFeature($index);
     }
 
     public function addOption()
@@ -63,8 +48,6 @@ class ManageOptions extends Component
             $rules['newOption.features.' . $index . '.description'] = 'required|max:255';
         }
 
-        $this->validate($rules);
-
         $option = Option::create([
             'name' => $this->newOption['name'],
             'type' => $this->newOption['type'],
@@ -76,6 +59,8 @@ class ManageOptions extends Component
                 'description' => $feature['description'],
             ]);
         }
+
+        $this->newOption->save();
 
         $this->options = Option::with('features')->get();
 

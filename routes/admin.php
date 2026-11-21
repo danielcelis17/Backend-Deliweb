@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
-Route::get('/options', [OptionController::class, 'index'])->name('options.index')
+Route::get('/options', [OptionController::class, 'index'])->name('options.index');
 
 Route::resource('families', FamilyController::class);
 Route::resource('categories', CategoryController::class);
