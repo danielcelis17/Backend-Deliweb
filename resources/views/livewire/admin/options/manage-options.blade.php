@@ -16,7 +16,7 @@
 
         <div class="p-6">
 
-
+            {{-- Opciones --}}
             <div class="space-y-6">
 
                 @foreach ($options as $option)
@@ -25,6 +25,11 @@
                         wire:key="option-{{$option->id}}">
 
                         <div class="absolute -top-3 px-4 bg-white">
+
+                            <button class="mr-1" onclick="confirmDelete({{$option->id}}, 'option')">
+                                <i class="fa-solid fa-trash-can text-red-500 hover:text-red-600"></i>
+                            </button>
+
                             <span>
                                 {{ $option->name }}
                             </span>
@@ -44,7 +49,7 @@
                                             {{ $feature->description }}
 
                                             <button class="ml-0.5" 
-                                                onclick="confirmDelete({{$feature->id}})">
+                                                onclick="confirmDelete({{$feature->id}}, 'feature')">
                                                 <i class="fa-solid fa-xmark hover:text-red-500"></i>
                                             </button>
 
@@ -58,7 +63,7 @@
                                             <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{ $feature->value }}"></span>
 
                                             <button class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center"
-                                                onclick="confirmDelete({{$feature->id}})">
+                                                onclick="confirmDelete({{$feature->id}}, 'feature')">
                                                 <i class="fa-solid fa-xmark text-white text-xs"></i>
                                             </button>
                                         </div>
@@ -225,7 +230,7 @@
 
         <script>
             
-            function confirmDelete(featureId) {
+            function confirmDelete(id, type) {
 
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -239,7 +244,21 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
 
-                        @this.call('deleteFeature', featureId);
+                        switch (type) {
+                            case 'feature':
+
+                                @this.call('deleteFeature', id);
+
+                                break;
+
+                            case 'option':
+
+                                @this.call('deleteOption', id);
+                                
+                                break;
+                        }
+
+
                     }
                 });
             }
