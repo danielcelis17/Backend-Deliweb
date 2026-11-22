@@ -40,17 +40,28 @@
                                 @switch($option->type)
                                     @case(1)
 
-                                        <span class="bg-neutral-secondary-medium border border-default-medium text-heading text-xs font-medium px-1.5 py-0.5 rounded">
-                                            {{
-                                                $feature->description
-                                            }}
+                                        <span class="bg-neutral-secondary-medium border border-default-medium text-heading text-xs font-medium pl-2.5 pr-1.5 py-0.5 rounded">
+                                            {{ $feature->description }}
+
+                                            <button class="ml-0.5" 
+                                                onclick="confirmDelete({{$feature->id}})">
+                                                <i class="fa-solid fa-xmark hover:text-red-500"></i>
+                                            </button>
+
                                         </span>
                                         
                                         @break
                                     @case(2)
 
                                         {{-- Color --}}
-                                        <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{ $feature->value }}"></span>
+                                        <div class="relative">
+                                            <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{ $feature->value }}"></span>
+
+                                            <button class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center"
+                                                onclick="confirmDelete({{$feature->id}})">
+                                                <i class="fa-solid fa-xmark text-white text-xs"></i>
+                                            </button>
+                                        </div>
 
                                         @break
                                     @default
@@ -209,5 +220,33 @@
         </x-slot>
 
     </x-dialog-modal>
+
+    @push('js')
+
+        <script>
+            
+            function confirmDelete(featureId) {
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3b82f6',
+                    cancelButtonColor: '#ef4444',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        @this.call('deleteFeature', featureId);
+                    }
+                });
+            }
+
+
+        </script>
+
+    @endpush
 
 </div>
