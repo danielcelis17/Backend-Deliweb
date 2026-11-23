@@ -7,7 +7,9 @@ use Livewire\Component;
 class ProductVariants extends Component
 {
 
-    public $openModal = true;
+    public $product;
+
+    public $openModal = false;
 
     public $options;
 
@@ -69,9 +71,40 @@ class ProductVariants extends Component
         $this->variant['features'] = array_values($this->variant['features']);
     }
 
+    public function deleteFeature($option_id, $feature_id)
+    {
+        $this->product->options()->updateExistingPivot($option_id, [
+            'features' => array_filter($this->product->options->find($option_id)->pivot->features, function ($feature) use ($feature_id) {
+                return $feature['id'] != $feature_id;
+            });
+        ]);
+
+        $this->product = $this->product->fresh();
+    }
+
+    public function deleteOption($option_id)
+    {
+        $this->product->options()->detach($option_id);
+        $this->product = $this->product->fresh();
+    }
+
     public function save()
     {
-        dd($this->variant);
+
+        $this->validate([
+            'variant.option_id' => 'required',
+            'variant.features.*.id' => 'required',
+            'variant.features.*.value' => 'required',
+            'variant.features.*.description' => 'required',
+        ]);
+
+        $this->product->options()->attach($this->variant['option_id'], [
+            'features' => $this->variant['features']
+        ]);
+
+        $this->product = $this->product->fresh();
+
+        $this->reset(['variant', 'openModal']);
     }
 
     public function render()

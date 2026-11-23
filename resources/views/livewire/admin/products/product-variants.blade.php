@@ -15,6 +15,87 @@
 
         <div class="p-6">
 
+            @if ($product->options->count())
+                
+                <div class="space-y-6">
+
+                    @foreach ($product->options as $option)
+
+                    <div wire:key="product-option-{{$option->id}}"
+                        class="p-6 rounded-lg border border-gray-200 relative">
+
+                        <div class="absolute -top-3 px-4 bg-white">
+                            <button  onclick="confirmDeleteOption({{ $option->id }})">
+                                <i class="fa-solid fa-trash-can text-red-500 hover:text-red-600"></i>
+                            </button>
+
+                            <span class="ml-2">
+                                {{ $option->name }}
+                            </span>
+                        </div>
+
+                        {{-- Valores --}}
+                        <div class="flex flex-wrap">
+
+
+                            @foreach ($options->pivot->features as $feature)
+
+
+                                @switch($option->type)
+                                    @case(1)
+
+                                        <span class="bg-neutral-secondary-medium border border-default-medium text-heading text-xs font-medium pl-2.5 pr-1.5 py-0.5 rounded">
+                                            {{ $feature['description'] }}
+
+                                            <button class="ml-0.5" 
+                                                onclick="confirmDeleteFeature({{$option->id}}, {{$feature['id']}})">
+                                                <i class="fa-solid fa-xmark hover:text-red-500"></i>
+                                            </button>
+
+                                        </span>
+                                        
+                                        @break
+                                    @case(2)
+
+                                        {{-- Color --}}
+                                        <div class="relative">
+                                            <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{ $feature['value'] }}"></span>
+
+                                            <button class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center"
+                                                onclick="confirmDelete({{$feature['id']}}, 'feature')">
+                                                <i class="fa-solid fa-xmark text-white text-xs"></i>
+                                            </button>
+                                        </div>
+
+                                        @break
+                                    @default
+                                        
+                                @endswitch
+
+                            @endforeach
+                            
+                        </div>
+
+                    </div>
+                    
+                    @endforeach
+
+                </div>
+
+            @else
+
+            <div class="p-4 mb-4 text-sm text-fg-brand-strong rounded-base bg-brand-softer" role="alert">
+                <span class="font-medium">Info alert!</span> No hay opciones para este producto.
+            </div>
+            <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                <span class="font-medium">Danger alert!</span> No hay opciones para este producto.
+            </div>
+            <div class="p-4 mb-4 text-sm text-fg-success-strong rounded-base bg-success-soft" role="alert">
+                <span class="font-medium">Success alert!</span> No hay opciones para este producto.
+            </div>
+                
+            @endif
+
         </div>
 
     </section>
@@ -27,6 +108,8 @@
         </x-slot>
 
         <x-slot name="content">
+
+            <x-validation-errors class="mb-4" />
 
             <div class="mb-4">
                 <x-label class="mb-1">
@@ -133,5 +216,48 @@
         </x-slot>
 
     </x-dialog-modal>
+
+    @push('js')
+        <script>
+            function confirmDeleteFeature(option_id, feature_id) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3b82f6',
+                    cancelButtonColor: '#ef4444',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        @this.call('deleteFeature', option_id, feature_id);
+
+                    }
+                });
+            }
+
+            function confirmDeleteOption(option_id) {
+            
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3b82f6',
+                    cancelButtonColor: '#ef4444',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        @this.call('deleteOption', option_id);
+                    }
+                });
+            }
+        </script>
+        
+    @endpush
 
 </div>
