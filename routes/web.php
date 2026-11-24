@@ -18,16 +18,23 @@ Route::middleware([
 
 Route::get('prueba', function(){
 
-    $array1 = ['a', 'b'];
-    $array2 = ['a', 'b'];
-    $array3 = ['a', 'b'];
+    $product = Product::find(150);
+    $features = $product->options->pluck('pivot.features');
 
-    $arrays = [$array1, $array2, $array3];
+    $combinaciones = generarCombinaciones($features);
 
-    $combinaciones = generarCombinaciones($arrays);
+    $product->variants()->delete();
+    foreach ($combinaciones as $combinaciones) {
+        
+        $variant = Variant::create([
+            'product_id' => $product->id,
+        ]);
 
-    return $combinaciones;
+        $variant->features()->attach($combinacion);
 
+    }
+
+    return "Variantes creadas";
 });
 
 function generarCombinaciones($arrays, $indice = 0, $combinacion = [])

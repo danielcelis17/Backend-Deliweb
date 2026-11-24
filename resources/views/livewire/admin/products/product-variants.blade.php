@@ -39,9 +39,8 @@
 
 
                             @foreach ($options->pivot->features as $feature)
-
-
-                                @switch($option->type)
+                                <div wire:key="option-{{$option->id}}-feature-{{$feature['id']}}">
+                                    @switch($option->type)
                                     @case(1)
 
                                         <span class="bg-neutral-secondary-medium border border-default-medium text-heading text-xs font-medium pl-2.5 pr-1.5 py-0.5 rounded">
@@ -62,7 +61,7 @@
                                             <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4" style="background-color: {{ $feature['value'] }}"></span>
 
                                             <button class="absolute z-10 left-3 -top-2 rounded-full bg-red-500 hover:bg-red-600 h-4 w-4 flex justify-center items-center"
-                                                onclick="confirmDelete({{$feature['id']}}, 'feature')">
+                                                onclick="confirmDeleteFeature({{$feature['id']}}, 'feature')">
                                                 <i class="fa-solid fa-xmark text-white text-xs"></i>
                                             </button>
                                         </div>
@@ -70,7 +69,8 @@
                                         @break
                                     @default
                                         
-                                @endswitch
+                                    @endswitch
+                                </div>
 
                             @endforeach
                             

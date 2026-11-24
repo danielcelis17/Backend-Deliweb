@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('image_path');
             $table->float('price');
 
-            $table->foreignId('subcategory_id')->constrained();
+            $table->foreignId('subcategory_id')
+                ->constrained()
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

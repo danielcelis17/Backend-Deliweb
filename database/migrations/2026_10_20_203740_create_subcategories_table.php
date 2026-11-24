@@ -16,8 +16,10 @@ return new class extends Migration
 
             $table->string('name');
 
-            $table->foreignId('category_id')->constrained();
-
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onDelete('cascade');
+                
             $table->timestamps();
         });
     }

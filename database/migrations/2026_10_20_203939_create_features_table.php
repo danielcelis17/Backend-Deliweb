@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
 
-            $table->string('value');
-            $table->string('description');
+            $table->string('sku')->nullable();
+            $table->string('image_path')->nullable();
 
-            $table->foreignId('option_id')
-            ->constrained();
-            ->onDelete('cascade');
+            $table->foreignId('product_id')
+                ->constrained()
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

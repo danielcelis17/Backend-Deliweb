@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('variants', function (Blueprint $table) {
             $table->id();
 
-            $table->string('sku');
-            $table->string('image_path');
+            $table->string('sku')->nullable();
+            $table->string('image_path')->nullable();
 
             $table->foreignId('product_id')->constrained();
 
