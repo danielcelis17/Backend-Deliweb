@@ -15,6 +15,13 @@ class Variant extends Model
         'product_id'
     ];
 
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->image_path ? Storage::url($this->image_path) : asset('img/no-image.jpg'),
+        );
+    }
+
     //Relacion uno a muchos inversa
     public function product(){
         return $this->belongsTo(Product::class);
