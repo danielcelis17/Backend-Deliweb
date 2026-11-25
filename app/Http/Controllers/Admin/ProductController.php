@@ -76,4 +76,44 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')
     }
+
+
+    public function variants(Product $product, Variant $variant)
+    {
+
+        return view('admin.products.variant', compact('product', 'variant'));
+
+    }
+
+    public function variantsUpdate(Request $request, Variant $variant)
+    {
+        
+        $request->validate([
+            'image' => 'nullable|image|max:1024',
+            'sku' => 'required',
+            'stock' => 'required|numeric|min:0',
+        ]);
+
+        if ($request->image) {
+
+            if ($variant->image_path) { 
+                Storage::delete($variant->image_path);
+
+            }
+
+            $data['image_path'] = $request->image->store('products');
+        }
+
+        $variant->update($data);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'La variante se actualizó correctamente.',
+        ]);
+
+        return redirect()->route('admin.products.variants', [$product, $variant]);
+
+    }
+
 }

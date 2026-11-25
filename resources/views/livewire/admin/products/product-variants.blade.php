@@ -1,5 +1,5 @@
 <div>
-    <section class="rounded-lg border border-gray-100 bg-white shadow-lg mb-12">
+    <section class="rounded-lg border border-gray-100 bg-white shadow-lg">
 
         <header class="border-b border-gray-200 px-6 py-2">
             <div class="flex justify-between">
@@ -99,8 +99,9 @@
         </div>
 
     </section>
-
-    <section class="rounded-lg border border-gray-100 bg-white shadow-lg">
+@if ($product->variants->count())
+    
+    <section class="rounded-lg border border-gray-100 bg-white shadow-lg mt-12">
 
     <header class="border-b border-gray-200 px-6 py-2">
             <div class="flex justify-between">
@@ -128,7 +129,7 @@
                             @endforeach
                         </p>
 
-                        <a href="" class="ml-auto btn btn-blue">
+                        <a href="{{route('admin.products.variants', [$product, $item])}}" class="ml-auto btn btn-blue">
                             Editar
                         </a>
 
@@ -139,6 +140,7 @@
             </ul>
         </div>
     </section>
+@endif
 
         <header class="border-b border-gray-200 px-6 py-2">
             <div class="flex justify-between">
