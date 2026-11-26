@@ -26,9 +26,63 @@
                 </div>
 
                 <div class="flex items-center space-x-4 md:space-x-8">
-                    <button class="text-xl md:text-3xl">
-                        <i class="fas fa-user text-white"></i>
-                    </button>
+
+                    <x-dropdown>
+                        
+                        <x-slot name="trigger">
+
+                            @auth
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                </button>
+                            @else
+                            <button class="text-xl md:text-3xl">
+                                <i class="fas fa-user text-white"></i>
+                            </button>
+                            @endauth
+
+                        </x-slot>
+
+                        <x-slot name="content">
+
+                            @guest
+
+                                <div class="px-4 py-2">
+
+                                <div class="flex justify-center">
+                                    <a href="{{route('login')}}" class="btn btn-purple">
+                                        Iniciar sesión
+                                    </a>
+                                </div>
+
+                                <p class="text-sm text-center mt-2">
+                                    ¿No tienes cuenta? <a href="{{route('register')}}" class="text-purple-600 hover:underline">Regístrate</a>
+                                </p>
+
+                                </div>
+
+                            @else
+
+                                <c-dropdown-link href="{{route('profile.show')}}">
+                                    Mi perfil
+                                </c-dropdown-link>
+
+                                <div class="border-t border-gray-200"></div>
+
+                                <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}" x-data>
+                                @csrf
+
+                                <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    {{ __('Log Out') }}
+                                </x-responsive-nav-link>
+                            </form>
+
+                            @endguest
+
+                        </x-slot>
+
+                    </x-dropdown>
 
                     <button class="text-xl md:text-3xl">
                         <i class="fas fa-shopping-cart text-white"></i>
