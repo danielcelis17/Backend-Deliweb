@@ -26,3 +26,5 @@ Route::get('products/{product}/variants/{variant}', [ProductController::class, '
 Route::put('products/{product}/variants/{variant}', [ProductController::class, 'variantsUpdate'])
     ->name('products.variantsUpdate')
     ->scopeBindings();
+
+Route::resource('covers', CoverController::class);
