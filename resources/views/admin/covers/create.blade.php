@@ -36,6 +36,8 @@
             id="imgPreview">
         </figure>
 
+        <c-validation-errors class="mb-4" />
+
         <div class="mb-4">
             <x-label>
                 Título
